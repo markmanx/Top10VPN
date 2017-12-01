@@ -12,9 +12,17 @@ const TPDS = [
   {days: 7, text: 'Last 7 days'}, 
   {days: 30, text: 'Last 30 days'}
 ]
+const INFO_MSGS = {
+  DOWNLOAD: {title: 'Download Speed', text: 'Average download speed recorded in our tests'},
+  PING: {title: 'Ping Response Time', text: 'Average ping response time recorded in our tests'}
+}
+const VPN_SORT_TYPES = {
+  FASTEST: 0,
+  SLOWEST: 1
+}
 let views = {
   filter: new Filter(onFilterChanged, onFilterSubmit, onFiltersExpand),
-  vpnList: new VpnList(onSortFastest)
+  vpnList: new VpnList(onSort, onInfoClicked, onInfoClosed)
 }
 let api = new Api();
 let state = {};
@@ -33,7 +41,9 @@ function init() {
       tpd: TPDS[1]
     },
     filtersMinimized: false,
-    vpns: []
+    vpns: [],
+    infoMsg: null,
+    sortVPNsBy: null
   })
 }
 
@@ -82,7 +92,8 @@ function onFilterSubmit() {
 
     setState({
       vpns: arr,
-      filtersMinimized: true
+      filtersMinimized: true,
+      sortVPNsBy: null
     })
   });
 }
@@ -93,14 +104,30 @@ function onFiltersExpand() {
   })
 }
 
-function onSortFastest() {
-  let sorted = state.vpns.sort((a, b) => {
-    return a.dlMbps + b.dlMbps;
-  })
+function onSort() {
+  let sortBy;
+
+  if (state.sortVPNsBy == null) {
+    sortBy = VPN_SORT_TYPES.FASTEST;
+  } else {
+    sortBy = state.sortVPNsBy == VPN_SORT_TYPES.FASTEST ? VPN_SORT_TYPES.SLOWEST : VPN_SORT_TYPES.FASTEST;
+  }
 
   setState({
-    vpns: sorted
+    sortVPNsBy: sortBy
   })
+}
+
+function onInfoClicked(infoMsg) {
+  setState({
+    infoMsg: infoMsg
+  });
+}
+
+function onInfoClosed() {
+  setState({
+    infoMsg: null
+  });
 }
 
 init();

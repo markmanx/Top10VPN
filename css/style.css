@@ -9,7 +9,6 @@ html, body {
   min-height: 100%;
   margin: 0 auto;
   padding: 40px;
-  border: 1px solid gray;
   font-family: Arial, sans-serif;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -121,8 +120,9 @@ html, body {
 }
 
 /* === VPN LIST === */
+
 #vpns-container {
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .vpn-wrapper {
@@ -162,7 +162,79 @@ html, body {
 }
 
 #footer-container {
+  position: fixed;
   width: 100%;
   height: 50px;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  -webkit-box-shadow: -1px 0px 26px -1px rgba(0,0,0,0.75);
+  box-shadow: -1px 0px 26px -1px rgba(0,0,0,0.75);
 }
 
+.circle-icon {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1000px;
+  border: 1px solid gray;
+  width: 12px;
+  height: 12px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.info-icon {
+  width: 12px;
+  height: 12px;
+}
+
+#sort-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+#sort {
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* === INFO MESSAGE === */
+
+#info-msg-container {
+  display: grid;
+  grid-template-columns: 1fr 40px 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #e6f5fc;
+}
+
+#msg-detail-container {
+  align-self: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+#info-msg-title {
+  font-size: 14px;
+}
+
+#info-msg-text {
+  font-size: 12px;
+  font-style: italic;
+  color: gray;
+}
+
+#close-info-msg {
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: gray;
+}
